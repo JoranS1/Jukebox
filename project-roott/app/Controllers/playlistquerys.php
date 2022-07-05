@@ -1,7 +1,7 @@
 <?php
     namespace App\Controllers;
 
-    class playlist extends BaseController {
+    /*class playlist extends BaseController {
 
         public function __construct()
         {
@@ -46,4 +46,4 @@
             
         }
     }
-?>
+?>*/
