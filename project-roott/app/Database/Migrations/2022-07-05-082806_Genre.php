@@ -8,11 +8,23 @@ class Genre extends Migration
 {
     public function up()
     {
-        //
+        $this->forge->addField([
+            'id' => [
+                'type' => 'INT',
+                'constraint' => 30,
+                'unsigned' => true,
+                'auto_increment' => true,
+            ],
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => 150,
+            ]
+        ]);
+        $this->forge->addKey('id', true);
+        $this->forge->createTable('genres');
     }
 
     public function down()
     {
-        //
-    }
-}
+        $this->forge->dropTable('genres');
+    }}
