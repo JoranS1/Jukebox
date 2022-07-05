@@ -11,13 +11,15 @@
         public function Homepage(){
             $newSongModel = new \App\Models\getSongList;
             $newGenreModel = new \App\Models\getGenreList;
-
+            $newPlayListModel = new \App\Models\getPlayList;
             $songList = $newSongModel->get()
                                      ->getResult();
             $genreList = $newGenreModel->get()
                                        ->getResult();  
-                                       
-             return view("playlist", ["songs" => $songList, "genres"=>$genreList]);                          
+            $playList = $newPlayListModel->where("userId", current_user()['userId'])
+                                        ->get()
+                                        ->getResultArray();                           
+             return view("playlist", ["songs" => $songList, "genres"=>$genreList, "playlists"=>$playList]);                          
         }
         public function getOneSong($id){
             $newSongModel = new \App\Models\getSongList;
@@ -28,6 +30,7 @@
         public function getOneGenre($genreId){
             $newSongModel = new \App\Models\getSongList;
             $newGenreModel = new \App\Models\getGenreList;
+            $newPlayListModel = new \App\Models\getPlayList;
 
             $songList = $newSongModel->where("GenreId", $genreId)
                                          ->get()
@@ -36,8 +39,10 @@
             $oneGenre = $newGenreModel->where("GenreId", $genreId)
                                       ->get()
                                       ->getResult();
-
-            return view("playlist", ["songs" => $songList, "genres"=>$genreList]);
+            $playList =  $newPlayListModel->where("id", $genreId)
+                                          ->get()
+                                          ->getResult();
+            return view("playlist", ["songs" => $songList, "genres"=>$oneGenre, "playlist"=>$playList]);
             
         }
     }
