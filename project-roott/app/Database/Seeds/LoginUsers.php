@@ -4,7 +4,7 @@
 
     use CodeIgniter\Database\Seeder;
 
-    class user_login extends Seeder{
+    class LoginUsers extends Seeder{
         public function run(){
             $data = [
                [
@@ -20,7 +20,7 @@
             foreach($data as $userItem){
                 $username = $userItem['username'];
                 $password = $userItem['password'];
-                $this->db->query("INSERT INTO playlistUser (username, password) VALUES ('$username', '$password')");
+                $this->db->query("INSERT INTO playlistusers (username, password) VALUES ('$username', '$password')");
             }
         }
     }

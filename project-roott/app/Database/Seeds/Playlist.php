@@ -4,7 +4,7 @@
 
     use CodeIgniter\Database\Seeder;
 
-    class playlist extends Seeder{
+    class Playlist extends Seeder{
         public function run(){
             $data = [
                'test',
@@ -13,7 +13,7 @@
 
             foreach($data as $playlistItem){
                
-                $this->db->query("INSERT INTO playlistUser (list_name) VALUES ('$playlistItem')");
+                $this->db->query("INSERT INTO playlist (list_name) VALUES ('$playlistItem')");
             }
         }
     }

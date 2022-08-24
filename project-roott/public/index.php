@@ -1,6 +1,8 @@
 <?php
 
 // Path to the front controller (this file)
+
+
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 /*
@@ -13,20 +15,27 @@ define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
  */
 
 // Ensure the current directory is pointing to the front controller's directory
-chdir(__DIR__);
+chdir(FCPATH);
 
 // Load our paths config file
 // This is the line that might need to be changed, depending on your folder structure.
 $pathsConfig = FCPATH . '../app/Config/Paths.php';
 // ^^^ Change this if you move your application folder
-require realpath($pathsConfig) ?: $pathsConfig;
 
 $paths = new Config\Paths();
 
 // Location of the framework bootstrap file.
 $bootstrap = rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
-$app       = require realpath($bootstrap) ?: $bootstrap;
 
+//load enviroment settings from .env files into $_SERVER and $_ENV variables
+require_once SYSTEMPATH . 'Config/DotEnv.php';
+(new CodeIgniter\Config\DotEnv(ROOTPATH))->load();
+
+
+$app = Config\Services::codeigniter();
+$app->initialize();
+$context = is_cli() ? 'php-cli' : 'web';
+$app->setContext($context);
 /*
  *---------------------------------------------------------------
  * LAUNCH THE APPLICATION

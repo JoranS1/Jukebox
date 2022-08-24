@@ -1,9 +1,13 @@
 <?php
+
 namespace App\Models;
 
-use App\Controllers\BaseController;
+use CodeIgniter\Model;
 
-class getGenreList extends BaseController{
-
+class getGenreList extends Model{
+    protected $table =  'genres';
+    protected $primaryKey = 'id';
+    protected $returnType = 'array';
+    protected $allowedFields = ['id', 'name'];
 }
 ?>

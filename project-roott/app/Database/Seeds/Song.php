@@ -9,17 +9,20 @@
             $data = [
               [
                 "songName" => "Rasputin",
+                "songLength" => "2:50",
                 "artistName" => "Boney M",
               ],[
               "songName" => "Faint",
-                "artistName" => "Linkin Park",
+              "songLength" => "2:40",
+              "artistName" => "Linkin Park",
               ]
             ];
 
             foreach($data as $songItem){
                $songName = $songItem["songName"];
+               $songLength = $songItem["songLength"];
                $artistName = $songItem["artistName"];
-                $this->db->query("INSERT INTO songs (songName, artistName) VALUES ('$songName', '$artistName')");
+                $this->db->query("INSERT INTO songs (songName, songLength, artistName) VALUES ('$songName', '$songLength','$artistName')");
             }
         }
     }

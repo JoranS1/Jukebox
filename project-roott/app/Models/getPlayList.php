@@ -1,9 +1,9 @@
 <?php
 namespace App\Models;
 
-use App\Controllers\BaseController;
+use CodeIgniter\Model;
 
-class getPlayList extends BaseController{
+class getPlayList extends Model{
     
 }
 ?>

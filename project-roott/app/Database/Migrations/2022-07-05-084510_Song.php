@@ -19,6 +19,11 @@ class Song extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 150,
             ],
+            'songLength' => [
+                'type' => 'VARCHAR',
+                'constraint' => 150,
+            ],
+
             'artistName' => [
                 'type' => 'VARCHAR',
                 'constraint' => 150,

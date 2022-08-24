@@ -4,7 +4,7 @@
 
     use CodeIgniter\Database\Seeder;
 
-    class genres_songs extends Seeder{
+    class GenreSongs extends Seeder{
         public function run(){
             $data = [
                [
