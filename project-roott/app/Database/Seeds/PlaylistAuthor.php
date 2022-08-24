@@ -4,7 +4,7 @@
 
     use CodeIgniter\Database\Seeder;
 
-    class playlist_authors extends Seeder{
+    class PlaylistAuthor extends Seeder{
         public function run(){
             $data = [
               [
