@@ -2,45 +2,49 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
-{
-    public function index()
+use App\Models\getSongList;
+use App\Models\getGenreList;
+use App\Models\getGenreSongs;
+
+class Home extends BaseController{
+    public function __construct()
     {
-        return view('Login');
+        helper("userLoginData");
+        helper("queueSongData");
     }
-    public function createAccountPage($create){
-        return view("login", ["create" => $create]);
+    public function index(){
+        $data =  [
+            'title' => "Home",
+            'isLoggedIn' => userLoginData(),
+        ];
+
+        echo view('template/head', $data);
+        echo view('template/header', $data);
+
+        $songs = new getSongList();
+        $genres = new getGenreList();
+        $genreSongs = new getGenreSongs();
+
+        $allSongs = $songs->findAll();
+        echo view('Home/index_base_start');
+
+        foreach($allSongs as $song){
+            $genreSong = $genreSongs->where('song_id', $song['id'])->find();
+            $songGenre = $genres->where('id', $genreSong[0]['genre_id'])->find();
+
+            $data['songName'] = $song['songName'];
+            $data['artistName'] = $song['artistName'];
+            $data['songId'] = $song['id'];
+            $data['genreName'] = $songGenre[0]['name'];
+
+            echo view('Home/song', $data);
+        }
+        echo view('Home/index_base_end');
+        $queue = queueSongData();
+
+        $data['queue'] = $queue;
+        echo view('templates/view', $data);
     }
-    public function loginScreen(){
-        $model = new \App\Models\getUsers;
-        $user = $model->where("UserName", $this->$request->getPost("UserName"))
-                      ->where("PassWord", $this->$request->getPost("PassWord"))
-                      ->first();
-        if($user === null){
-            return redirect()->back()
-                             ->with("warning", "This user seems not to exists please put in a valid username")
-                             ->withInput();
-        }
-        else{
-            session()->set("id", $user["UserId"]);
-            return redirect()->to("/playlist");
-        }
-    }
-    public function createAcc(){
-        $model = new \App\Model\getUsers;
-        $username = $model->where("UserName", $this->$request->getPost("UserName"))
-                    ->first();
-        $password = $model->where("PassWord", $this->$request->getPost("Password"))
-                    ->first();
-        if($password != null && $username != null){
-            return redirect()->back()
-                             ->with("warning", "This password and/or username is already in use please put in an another password and username")
-                             ->withInput();
-        }
-        elseif(empty($username) || empty($password)){
-            return redirect()->back()
-                             ->with("warning", "Not everything is filled in yet")
-                             ->withInput();
-        }
-    }
+
 }
+?>
