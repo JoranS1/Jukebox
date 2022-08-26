@@ -53,7 +53,8 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $methods = [];
+    public $methods = [
+    ];
 
     /**
      * List of filter aliases that should run on any
