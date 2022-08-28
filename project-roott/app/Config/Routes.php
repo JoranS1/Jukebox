@@ -21,7 +21,7 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+//$routes->setAutoRoute(false);
 
 /*
  * --------------------------------------------------------------------
@@ -31,12 +31,16 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/create/(:alphanum)', 'Home::createAccountPage/$1');
-$routes->get('/inlog', 'Home::index');
+$routes->get('/', 'Home::index');
 $routes->get('/playlist', 'playlist::Homepage');
-$routes->get('/showSong/(alphanum)', 'playlist::song/$1');
-$routes->get("/playlistgen/(:alphanum)", "playlist::oneGen/$1");
+$routes->get('/songDetail/(alphanum)', 'songDetail::index/$1');
+$routes->get("/playlistGen", "queue::makePlaylist");
 $routes->get('/logout', 'playlist::logout');
+$routes->get('/login', 'login::login');
+$routes->get('/register', 'login::register');
+$routes->get('/logout', 'login::logout');
+
+
 
 /*
  * --------------------------------------------------------------------
