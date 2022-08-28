@@ -32,14 +32,20 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/playlist', 'playlist::Homepage');
-$routes->get('/songDetail/(alphanum)', 'songDetail::index/$1');
+$routes->get('/songDetail/(:alphanum)', 'songDetail::index/$1');
 $routes->get("/playlistGen", "queue::makePlaylist");
 $routes->get('/logout', 'playlist::logout');
 $routes->get('/login', 'login::login');
 $routes->get('/register', 'login::register');
 $routes->get('/logout', 'login::logout');
+$routes->get("/playlists", "playlist::index");
+$routes->get('/queue/(:alphanum)', 'queue::index/$1');
+$routes->get('/playlist/(:alphanum)', 'playlist::detail/$1');
+$routes->get("/removeQueue/(:alphanum)", "queue::removeQueue/$1");
 
+$routes->post('/login', 'login::login');
+$routes->post('/register', 'login::register');
+$routes->post('/playlistGen', 'queue::makePlaylist');
 
 
 /*
